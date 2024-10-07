@@ -9,6 +9,7 @@ function ProductList() {
     const [addedToCart, setAddedToCart] = useState({});
     const dispatch = useDispatch();
     const cartItems = useSelector((state) => state.cart.items);
+    const totalItems = cartItems.reduce((total, item) => total + item.quantity, 0); // Calculate total number of items in cart
 
     const plantsArray = [
         {
@@ -274,10 +275,16 @@ function ProductList() {
                 </div>
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', width: '1100px' }}>
                     <a href="#" onClick={(e) => handlePlantsClick(e)} style={{ color: 'white', fontSize: '30px', textDecoration: 'none' }}>Plants</a>
-                    <a href="#" onClick={(e) => handleCartClick(e)} style={{ color: 'white', fontSize: '30px', textDecoration: 'none' }}>
+                    
+                    {/* Cart Icon with Total Items */}
+                    <a href="#" onClick={(e) => handleCartClick(e)} style={{ color: 'white', fontSize: '30px', textDecoration: 'none', position: 'relative' }}>
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" height="68" width="68">
                             <path d="M42.3,72H221.7l-26.4,92.4A15.9,15.9,0,0,1,179.9,176H84.1a15.9,15.9,0,0,1-15.4-11.6L32.5,37.8A8,8,0,0,0,24.8,32H8" stroke="#faf9f9" strokeWidth="2" fill="none" />
                         </svg>
+                        {/* Display the total number of items */}
+                        {totalItems > 0 && (
+                            <span className="cart-quantity-badge">{totalItems}</span>
+                        )}
                     </a>
                 </div>
             </div>
